@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+//Return the frequency of number five which is equal to the number of trailing 0s
+int trailing(int n)
+{
+    int count = 0;
+    int temp;
+    //find out all multiples of number five
+    for(int i = 5; i <= n; i += 5)	
+    {
+        temp = i;
+        //The multiple may be divided by number five more than once
+        while(temp % 5 == 0)		
+        {
+            count++;
+            temp /= 5;
+        }
+    }
+    return count;
+}
+
+int main()
+{
+    int num;
+    cout << "Please enter a factorial number: ";
+    cin >> num;
+    cout << "The number of trailing 0s in this factorial number: ";
+    cout << trailing(num) << endl;
+    return 0;
+}
