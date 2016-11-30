@@ -1,0 +1,46 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+
+//swap the values of parameters
+void swap(int &x, int &y)
+{
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+int main()
+{
+	  //input
+    cout << "Please enter the length of an array: ";
+    int len;
+    cin >> len;
+    int *L = new int[len];
+    int i, ran_num;
+    cout << "Please enter the array with " << len << " integers: ";
+    for(i = 0; i < len; i++)
+    {
+        cin >> L[i];
+    }
+	
+	  //shuffle inputs randomly
+    srand(time(0));         		  //reproduce the seed of function rand()
+    for (i = 0; i < len; i++)
+    {
+        ran_num = rand() % len;		//produce a random number as a index
+        swap(L[i], L[ran_num]);
+    }
+
+	  //output
+    cout << "The array after shuffling is: ";
+    for (i = 0; i < len; i++)
+    {
+        cout << L[i] << " ";
+    }
+    
+    cout<<endl;
+    delete L;
+    return 0;
+}
