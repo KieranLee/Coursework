@@ -23,3 +23,14 @@ int main()
     cout << per_square(num) << endl;
     return 0;
 }
+
+//pseudocode
+/*
+PERFECT_SQUARE(N)
+    max <- 0
+    i <- 1
+    WHILE i * i <= n
+        max <- i * i
+        i <- i + 1
+    RETURN max 
+*/
