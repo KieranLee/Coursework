@@ -1,0 +1,84 @@
+//The run-time of this shuffle algorithm is O(n)
+/*
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+
+//swap the values of parameters
+void swap(int &x, int &y)
+{
+    int temp = x;			//O(1)
+    x = y;					//O(1)
+    y = temp;				//O(1)
+}
+
+int main()
+{
+	//input
+    cout << "Please enter the length of an array: ";
+    int len;
+    cin >> len;
+    int *L = new int[len];
+    int i, ran_num;
+    cout << "Please enter the array with " << len << " integers: ";
+    for(i = 0; i < len; i++)		//O(n) 
+    {
+        cin >> L[i];
+    }
+	
+	//shuffle inputs randomly
+    srand(time(0));         		//reproduce the seed of function rand()
+    for (i = 0; i < len; i++)		//O(n)
+    {
+        ran_num = rand() % len;		//produce a random number as a index
+        swap(L[i], L[ran_num]);		//O(1)
+    }
+
+	//output
+    cout << "The array after shuffling is: ";
+    for (i = 0; i < len; i++)		//O(n)
+    {
+        cout << L[i] << " ";
+    }
+    
+    cout<<endl;
+    delete L;
+    return 0;
+}
+*/
+
+//The run-time of this trailing algorithm is O(n^2)
+/*
+#include <iostream>
+using namespace std;
+
+//Return the frequency of number five which is equal to the number of trailing 0s
+int trailing(int n)
+{
+    int count = 0;
+    int temp;
+    //find out all multiples of number five
+    for(int i = 5; i <= n; i += 5)				//O(n)	
+    {
+        temp = i;
+        //The multiple may be divided by number five more than once
+        while(temp % 5 == 0)					//O(n^2)		
+        {
+            count++;
+            temp /= 5;
+        }
+    }
+    return count;
+}
+
+int main()
+{
+    int num;
+    cout << "Please enter a factorial number: ";
+    cin >> num;
+    cout << "The number of trailing 0s in this factorial number: ";
+    cout << trailing(num) << endl;		//O(n^2)
+    return 0;
+}
+*/
