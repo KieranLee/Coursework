@@ -13,7 +13,7 @@ void swap(int &x, int &y)
 
 int main()
 {
-	  //input
+    //input
     cout << "Please enter the length of an array: ";
     int len;
     cin >> len;
@@ -25,8 +25,8 @@ int main()
         cin >> L[i];
     }
 	
-	  //shuffle inputs randomly
-    srand(time(0));         		  //reproduce the seed of function rand()
+    //shuffle inputs randomly
+    srand(time(0));         		//use time to reproduce the seed of function rand()
     for (i = 0; i < len; i++)
     {
         ran_num = rand() % len;		//produce a random number as a index
