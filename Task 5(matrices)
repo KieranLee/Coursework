@@ -1,0 +1,33 @@
+//The run-time is O(n^3)
+/*
+ADDITION(X,Y)
+    FOR i <- 1 TO n           //O(n)
+        FOR j <- 1 TO n       //O(n^2)
+            Z[i][j] = X[i][j] + Y[i][j]
+    RETURN Z
+
+SUBTRACTION(X,Y)
+    FOR i <- 1 TO n           //O(n)
+        FOR j <- 1 TO n       //O(n^2)
+            Z[i][j] = X[i][j] - Y[i][j]
+    RETURN Z
+
+MULTIPLICATION_MATRIX(X,Y)
+    FOR i <- 1 TO n           //O(n)
+        FOR j <- 1 TO n       //O(n^2)
+            FOR k <- 1 TO n   //O(n^3)
+                Z[i][j] += X[i][k] * Y[k][j]
+    RETURN Z	
+
+MULTIPLICATION_NUMBER(N,X)
+    FOR i <- 1 TO n           //O(n)
+        FOR j <- 1 TO n       //O(n^2)
+            X[i][j] *= N
+    RETURN X
+
+COMPUTE()
+    temp1 <- ADDITION(B,C)
+    temp2 <- MULTIPLICATION_NUMBER(2,temp1)
+    temp3 <- MULTIPLICATION_MATRIX(B,C)
+    A <- SUBTRACTION(temp3,temp2)
+*/
