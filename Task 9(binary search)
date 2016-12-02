@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+int low, high;
+int *L;
+
+bool binSearch(int left, int right)
+{
+    if (left > right)		//base case
+    {
+        return false;		//There is no value in the given interval
+    }
+    else
+    {
+        int mid = (left + right) / 2;
+        if (L[mid] <= high && L[mid] >= low)
+            return true;						//There is a value in the given interval
+        else if (L[mid] < low)
+            return binSearch(mid + 1, right);
+        else                                    //if (L[mid] > high)
+            return binSearch(left, mid - 1);
+    }
+}
+
+int main()
+{
+    cout << "Please enter the length of an array: ";
+    int n;
+    cin >> n;
+    L = new int[n];
+    
+    cout << "Please enter the array with " << n << " integers in ascending order: ";
+    for (int i = 0; i < n; i++)							//O(n)
+    {
+        cin >> L[i];
+    }
+    
+    cout << "Please enter an interval:" << endl;
+    cout << "low = ";
+    cin >> low;
+    cout << "high = ";
+    cin >> high;
+
+    cout << boolalpha << binSearch(0, n-1) << endl;		//O(logn)
+    
+    delete L;
+    return 0;
+}
+
+//pseudocode
+/*
+BINARY_SEARCH(A,L,R)
+    IF L > R	//base case
+        RETURN FALSE
+    ELSE
+        mid <- (L + R) / 2
+        IF A[mid] <= high AND A[mid] >= low
+            RETURN TRUE
+        ELSE IF A[mid] < low
+            RETURN BINARY_SEARCH(A,mid + 1,R)
+        ELSE 	//if (A[mid] > high)
+            RETURN BINARY_SEARCH(A,L,mid - 1)
+*/
