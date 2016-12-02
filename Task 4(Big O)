@@ -22,24 +22,24 @@ int main()
     int *L = new int[len];
     int i, ran_num;
     cout << "Please enter the array with " << len << " integers: ";
-    for(i = 0; i < len; i++)		//O(n) 
+    for(i = 0; i < len; i++)		 
     {
-        cin >> L[i];
+        cin >> L[i];			//O(n)
     }
 	
 	//shuffle inputs randomly
-    srand(time(0));         		//reproduce the seed of function rand()
-    for (i = 0; i < len; i++)		//O(n)
+    srand(time(0));         		
+    for (i = 0; i < len; i++)		
     {
-        ran_num = rand() % len;		//produce a random number as a index
-        swap(L[i], L[ran_num]);		
+        ran_num = rand() % len;		//O(n)
+        swap(L[i], L[ran_num]);		//O(n)
     }
 
 	//output
     cout << "The array after shuffling is: ";
-    for (i = 0; i < len; i++)		//O(n)
+    for (i = 0; i < len; i++)		
     {
-        cout << L[i] << " ";
+        cout << L[i] << " ";		//O(n)
     }
     
     cout<<endl;
@@ -59,14 +59,14 @@ int trailing(int n)
     int count = 0;
     int temp;
     //find out all multiples of number five
-    for(int i = 5; i <= n; i += 5)				//O(n)	
+    for(int i = 5; i <= n; i += 5)					
     {
-        temp = i;
+        temp = i;				//O(n)
         //The multiple may be divided by number five more than once
-        while(temp % 5 == 0)					//O(n^2)		
+        while(temp % 5 == 0)			//O(n)						
         {
-            count++;
-            temp /= 5;
+            count++;				//O(n^2)
+            temp /= 5;				//O(n^2)
         }
     }
     return count;
