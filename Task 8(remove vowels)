@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+void Remove(char c[], int i, int len)	//i represents the index of current character; len represents the current length of char[]
+{
+    if(i < 0)							            //base case
+    {
+        cout << "The word after removing all vowels: ";
+		string s(c);					            //convert char[] into string
+        cout << s;
+    }
+    else
+    {
+        if(c[i] == 'a' || c[i] == 'e' || c[i] == 'i' || c[i] == 'o' || c[i] == 'u')
+        {
+            for(int j = i; j < len; j++)
+            {
+                c[j] = c[j+1];			  //delete the vowel
+            }
+            Remove(c, --i, --len);
+        }
+        else Remove(c, --i, len);
+    }
+}
+
+int main()
+{
+    string s;
+    cout << "Please enter a word: ";
+    cin >> s;
+
+	//copy the string and paste into a char[]
+    int n = s.length();
+    char c[n];
+    strcpy(c, s.c_str());
+
+	//remove all vowels
+    Remove(c, n-1, n);
+
+    cout << endl;
+    return 0;
+}
+
+//pseudocode
+/*
+REMOVE(C,I)
+    IF I < 0		      		//base case
+        FOR j <- 1 TO length[C]
+            output C[j]
+    ELSE
+        IF C[I] = vowels    	//a,e,i,o,u
+            FOR j <- I TO length[C]
+                C[j] <- C[j+1]
+            I <- I -1
+            REMOVE(C,I)
+        ELSE
+            I <- I -1
+            REMOVE(C,I)
+*/
