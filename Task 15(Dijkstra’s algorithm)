@@ -1,0 +1,178 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+#define N 10
+#define MAX 9999
+
+class Graph
+{
+public:
+	int numNodes;
+	int numEdges;
+	int AdMatrix[N][N];	//adjacency matrix
+	int nodes[N];		//store the value of nodes
+	int visited[N];		//represent whether a node is visited
+	//Graph constructor 
+	Graph()
+	{
+		numNodes = 0;
+		numEdges = 0;
+		for(int i = 0; i < N; i++)
+		{
+			for(int j = 0; j < N; j++)
+			{
+				AdMatrix[i][j] = MAX;
+			}
+		}
+		for(int i = 0; i < N; i++)
+		{
+			visited[i] = 0;		//Node is not visited
+		}
+	}
+	//add the value of nodes
+	void addNodes()
+	{
+		for(int i = 0; i < numNodes; i++)
+		{
+			cin >> nodes[i];
+		}
+	}
+	//find out the position of targeted node in nodes[]
+	int nodesPos(int node)
+	{
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(node == nodes[i])
+			{
+				return i;
+			}
+		}
+	}
+	//add the unweighted edges
+	void addEdges(int node1, int node2, int weight)
+	{
+		int x = nodesPos(node1);
+		int y = nodesPos(node2);
+		AdMatrix[x][y] = weight;
+		AdMatrix[y][x] = weight;
+	}
+	//display nodes
+	void disNodes()
+	{
+		for(int i = 0; i < numNodes; i++)
+		{
+			cout << nodes[i] << " ";
+		}
+	}
+};
+
+void Dijkstra(Graph* g, int start, int end)
+{
+	int v = start;				//v is always the currently scanned node
+	int dis[g->numNodes];		//the tentative weight of node
+	int prev[g->numNodes];		//store the return path
+	for(int i = 0; i < g->numNodes; i++)
+	{
+		dis[i] = MAX;
+	}
+	dis[g->nodesPos(start)] = 0;	//Start node is no distance from itself
+	prev[g->nodesPos(start)] = MAX;	//the return path of the start node does not make any sense
+	while(v != end)
+	{
+		int vPos = g->nodesPos(v);
+		for(int i = 0; i < g->numNodes; i++)
+		{
+			if(g->AdMatrix[vPos][i] != MAX)
+			{
+				if(dis[vPos] + g->AdMatrix[vPos][i] < dis[i])
+				{
+					dis[i] = dis[vPos] + g->AdMatrix[vPos][i];
+					prev[i] = v;
+				}
+			}
+		}
+		g->visited[vPos] = 1;
+		int min = MAX;			//current minimum tentative weight of node
+		for(int j = 0; j < g->numNodes; j++)
+		{
+			if(g->visited[j] == 0 && dis[j] < min)
+			{
+				v = g->nodes[j];
+				min = dis[j];
+			}
+		}
+	}
+
+	//output the paths and distance between start node and end node
+	stack<int> path;
+	path.push(end);
+	int temp = prev[g->nodesPos(end)];
+	while(prev[g->nodesPos(temp)] != MAX)	//until traversing the start node
+	{
+		path.push(temp);
+		temp = prev[g->nodesPos(temp)];
+	}
+	path.push(start);
+	cout << "The shortest paths: ";
+	while(!path.empty())
+	{
+		cout << path.top() << " ";
+		path.pop();
+	}
+	cout << endl;
+	cout << "The distance: ";
+	cout << dis[g->nodesPos(end)];
+}
+
+int main()
+{
+	Graph* g = new Graph();
+	//add nodes
+	cout << "Please enter the number of nodes (below 10): ";
+	cin >> g->numNodes;
+	while(g->numNodes > 10 || g->numNodes <= 0)
+	{
+		cout << "The maximum number of nodes is 10. Please enter again: ";
+		cin >> g->numNodes;
+	}
+	cout << "Please enter the value of nodes (" << g->numNodes << " integers): ";
+	g->addNodes();
+	cout << endl;
+	
+	//display the nodes entered
+	cout << "The nodes you have entered: ";
+	g->disNodes();
+	cout << endl;
+	
+	//add edges and related weight
+	int maxEdges = g->numNodes * (g->numNodes - 1) / 2;
+	int n1, n2, w;
+	cout << "Please enter the number of edges (below " << maxEdges << "): ";
+	cin >> g->numEdges;
+	while(g->numEdges > maxEdges || g->numEdges <= 0)
+	{
+		cout << "The maximum number of edges is " << maxEdges << ". Please enter again: ";
+		cin >> g->numEdges;
+	}
+	cout << "Please enter two nodes you want to connect from the nodes shown above and the weight of the edge every time (node1 node2 weight)." << endl;
+	for(int i = 0; i < g->numEdges; i++)
+	{
+		cout << "Edge " << i+1 << ": ";
+		cin >> n1 >> n2 >> w;
+		g->addEdges(n1, n2, w);
+	}
+	cout << endl;
+	
+	//shorest paths
+	int start, end;
+	cout << "Please enter two nodes between which you want to find out the shorest path." << endl;
+	cout << "Start node: ";
+	cin >> start; 
+	cout << "End node: ";
+	cin >> end;
+	Dijkstra(g, start, end);
+	
+	return 0;
+}
