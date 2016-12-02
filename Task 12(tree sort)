@@ -1,0 +1,93 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+int n;
+
+class BinTreeNode
+{
+public:
+    BinTreeNode(int value)
+    {
+        this->value = value;
+        this->left = NULL;
+        this->right = NULL;
+    }
+    int value;
+    BinTreeNode* left;
+    BinTreeNode* right;
+
+};
+
+BinTreeNode* tree_insert(BinTreeNode* tree, int item)
+{
+    if(tree == NULL)
+        tree = new BinTreeNode(item);
+    else if(item < tree->value)
+    {
+        if(tree->left == NULL)
+            tree->left = new BinTreeNode(item);
+        else
+            tree_insert(tree->left, item);
+    }
+    else if(tree->right == NULL)
+        tree->right = new BinTreeNode(item);
+    else
+        tree_insert(tree->right, item);
+    return tree;
+}
+
+void in_order(BinTreeNode* tree)
+{
+    stack<BinTreeNode*> tStack;
+    while(tree != NULL || !tStack.empty())
+    {
+        if(tree != NULL)           //"while" also works here.
+        {
+            tStack.push(tree);
+            tree = tree->left;
+        }
+        else						//left child is null and then backtrack
+        {
+            tree = tStack.top();	
+            cout << tree->value<<" ";
+            tStack.pop();
+            tree = tree->right;
+        }
+    }
+}
+
+void tree_sort(int *num)
+{
+	//create a new root
+    BinTreeNode* t = tree_insert(0,num[0]);
+    
+	//insert values into the tree
+    for(int i = 1; i < n; i++)
+    {
+        tree_insert(t, num[i]);
+    }
+    
+    //traverse the tree in order.
+    in_order(t);
+}
+
+int main(int argc, char *argv[])
+{
+    cout << "Please enter the length of an array: ";
+    cin >> n;
+    int *L = new int(n);
+    
+    cout << "Please enter the array with " << n << " integers: ";
+    for(int i = 0; i < n; i++)
+    {
+        cin >> L[i];
+    }
+    
+    cout << "The array after tree sort: ";
+    tree_sort(L);
+
+    cout<<endl;
+    return 0;
+}
