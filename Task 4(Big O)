@@ -9,7 +9,7 @@ using namespace std;
 void swap(int &x, int &y)
 {
     int temp = x;			//O(1)
-    x = y;					//O(1)
+    x = y;				//O(1)
     y = temp;				//O(1)
 }
 
@@ -32,7 +32,7 @@ int main()
     for (i = 0; i < len; i++)		//O(n)
     {
         ran_num = rand() % len;		//produce a random number as a index
-        swap(L[i], L[ran_num]);		//O(1)
+        swap(L[i], L[ran_num]);		
     }
 
 	//output
@@ -78,7 +78,7 @@ int main()
     cout << "Please enter a factorial number: ";
     cin >> num;
     cout << "The number of trailing 0s in this factorial number: ";
-    cout << trailing(num) << endl;		//O(n^2)
+    cout << trailing(num) << endl;		
     return 0;
 }
 */
