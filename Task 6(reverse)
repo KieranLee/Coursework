@@ -25,7 +25,11 @@ int main()
     return 0;
 }
 
-
-
-
-
+//pseudocode
+/*
+REVERSE(W)
+    FOR i <- 1 TO length[W]
+        input W[i]
+    FOR i <- length[W] DOWNTO 1
+        output W[i]
+*/
