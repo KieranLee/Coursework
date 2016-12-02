@@ -1,28 +1,28 @@
 //The run-time is O(n^3)
 /*
 ADDITION(X,Y)
-    FOR i <- 1 TO n           //O(n)
-        FOR j <- 1 TO n       //O(n^2)
-            Z[i][j] = X[i][j] + Y[i][j]
+    FOR i <- 1 TO n           
+        FOR j <- 1 TO n                         //O(n)   
+            Z[i][j] = X[i][j] + Y[i][j]         //O(n^2)
     RETURN Z
 
 SUBTRACTION(X,Y)
-    FOR i <- 1 TO n           //O(n)
-        FOR j <- 1 TO n       //O(n^2)
-            Z[i][j] = X[i][j] - Y[i][j]
+    FOR i <- 1 TO n           
+        FOR j <- 1 TO n                         //O(n)
+            Z[i][j] = X[i][j] - Y[i][j]         //O(n^2)
     RETURN Z
 
 MULTIPLICATION_MATRIX(X,Y)
-    FOR i <- 1 TO n           //O(n)
-        FOR j <- 1 TO n       //O(n^2)
-            FOR k <- 1 TO n   //O(n^3)
-                Z[i][j] += X[i][k] * Y[k][j]
+    FOR i <- 1 TO n           
+        FOR j <- 1 TO n                         //O(n)
+            FOR k <- 1 TO n                     //O(n^2)  
+                Z[i][j] += X[i][k] * Y[k][j]    //O(n^3)
     RETURN Z	
 
 MULTIPLICATION_NUMBER(N,X)
-    FOR i <- 1 TO n           //O(n)
-        FOR j <- 1 TO n       //O(n^2)
-            X[i][j] *= N
+    FOR i <- 1 TO n           
+        FOR j <- 1 TO n                         //O(n)  
+            X[i][j] *= N                        //O(n^2)
     RETURN X
 
 COMPUTE()
