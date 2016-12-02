@@ -61,7 +61,7 @@ public:
             this->tail=x;
         }
     }
-
+    //the function of deleting node
     void remove(Node* n)
     {
         if(n->prev != 0){
