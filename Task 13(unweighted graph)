@@ -1,0 +1,150 @@
+#include <iostream>
+using namespace std;
+
+#define N 10
+
+class Graph
+{
+public:
+	int numNodes;
+	int numEdges;
+	int AdMatrix[N][N];	//adjacency matrix
+	int nodes[N];		//store the value of nodes
+	//Graph constructor 
+	Graph()
+	{
+		numNodes = 0;
+		numEdges = 0;
+		for(int i = 0; i < N; i++)
+		{
+			for(int j = 0; j < N; j++)
+			{
+				AdMatrix[i][j] = 0;
+			}
+		}
+	}
+	//add the value of nodes
+	void addNodes()
+	{
+		for(int i = 0; i < numNodes; i++)
+		{
+			cin >> nodes[i];
+		}
+	}
+	//find out the position of targeted node in nodes[]
+	int nodesPos(int node)
+	{
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(node == nodes[i])
+			{
+				return i;
+			}
+		}
+	}
+	//add the unweighted edges
+	void addEdges(int node1, int node2)
+	{
+		int x = nodesPos(node1);
+		int y = nodesPos(node2);
+		AdMatrix[x][y] = 1;
+		AdMatrix[y][x] = 1;
+	}
+	//display nodes
+	void disNodes()
+	{
+		for(int i = 0; i < numNodes; i++)
+		{
+			cout << nodes[i] << " ";
+		}
+	}
+	//display the graph
+	void disGraph()
+	{
+		cout << " ";
+		for(int i = 0; i < numNodes; i++)
+		{
+			cout << " " << nodes[i];
+		}
+		cout << endl;
+		for(int i = 0; i < numNodes; i++)
+		{
+			cout << nodes[i];
+			for(int j = 0; j < numNodes; j++)
+			{
+				cout << " " << AdMatrix[i][j];
+			}
+			cout << endl;
+		}
+	}
+};
+
+int main()
+{
+	Graph* g = new Graph();
+	//add nodes
+	cout << "Please enter the number of nodes (below 10): ";
+	cin >> g->numNodes;
+	while(g->numNodes > 10 || g->numNodes <= 0)
+	{
+		cout << "The maximum number of nodes is 10. Please enter again: ";
+		cin >> g->numNodes;
+	}
+	cout << "Please enter the value of nodes (" << g->numNodes << " integers): ";
+	g->addNodes();
+	cout << endl;
+	
+	//display the nodes entered
+	cout << "The nodes you have entered: ";
+	g->disNodes();
+	cout << endl;
+	
+	//add edges
+	int maxEdges = g->numNodes * (g->numNodes - 1) / 2;
+	int n1, n2;
+	cout << "Please enter the number of edges (below " << maxEdges << "): ";
+	cin >> g->numEdges;
+	while(g->numEdges > maxEdges || g->numEdges <= 0)
+	{
+		cout << "The maximum number of edges is " << maxEdges << ". Please enter again: ";
+		cin >> g->numEdges;
+	}
+	cout << "Please enter two nodes you want to connect from the nodes shown above every time." << endl;
+	for(int i = 0; i < g->numEdges; i++)
+	{
+		cout << "Edge " << i+1 << ": ";
+		cin >> n1 >> n2;
+		g->addEdges(n1, n2);
+	}
+	cout << endl;
+	
+	//display the graph
+	cout << "The graph is shown below: " << endl;;
+	g->disGraph();
+	
+	return 0;
+}
+
+//pseudocode
+/*
+CLASS GRAPH
+    numNodes <- 0
+    numEdges <- 0
+    adjacMatrix <- [][]
+    nodes <- []
+
+    ADDNODES()
+        FOR i <- 1 TO numNodes
+            input nodes[i]
+
+    NODEPOSITION(NODE)
+        FOR i <- 1 TO numNodes
+            IF NODE = nodes[i]
+                RETURN i
+
+    ADDEDGES(N1, N2)
+        x <- NODEPOSITION(N1)
+        y <- NODEPOSITION(N2)
+        adjacMatrix[x][y] <- 1
+        adjacMatrix[y][x] <- 1
+*/
