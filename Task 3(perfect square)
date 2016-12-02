@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+//return the highest perfect square
+int per_square(int n)
+{
+    int max = 0;
+    int i = 1;
+    while(i * i <= n)
+    {
+        max = i * i;
+        i++;
+    }
+    return max;
+}
+
+int main()
+{
+    int num;
+    cout << "Please enter a positive integer: ";
+    cin >> num;
+    cout << "The highest perfect square which is less or equal to it: ";
+    cout << per_square(num) << endl;
+    return 0;
+}
