@@ -5,14 +5,14 @@ int num;
 
 bool isPrime(int i)
 {
-    if(i == 1)					  //base case
+    if(i == 1)					//base case
     {
         return true;			//It is a prime number
     }
     else
     {
         if(num % i == 0)
-            return false;		    //It is not a prime number
+            return false;		//It is not a prime number
         else isPrime(--i);      //try the next smaller divisor
     }
 }
@@ -27,7 +27,7 @@ int main()
         cout << "It is not a prime number.";
     }
     
-    if(isPrime(num / 2))		  //take half of the integer as a divisor
+    if(isPrime(num / 2))		//take half of the integer as a divisor
     {
         cout << "It is a prime number.";
     }
@@ -40,11 +40,11 @@ int main()
 //pseudocode
 /*
 IS_PRIME(I,NUM)
-    IF I = 1		          //base case
-        RETURN TRUE       //It is a prime number
+    IF I = 1		        //base case
+        RETURN TRUE         //It is a prime number
     ELSE
         IF NUM % I = 0
-            RETURN FALSE  //It is not a prime number
+            RETURN FALSE    //It is not a prime number
         ELSE
             I <- I - 1 
             IS_PRIME(I,NUM)
