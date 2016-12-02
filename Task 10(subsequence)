@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+int n;
+
+void max_sub(int *num, int *len)
+{
+	//calculate the length of ascending subsequences
+	int i;
+	len[0] = 1;
+	for(i = 1; i < n; i++){
+		if(num[i] > num[i-1])	//the subsequence is sequentially ascending
+		{
+			len[i] = len[i-1] + 1;
+		}
+		else					//The ascending sequence is interrupted and recalculate from 1
+		{
+			len[i] = 1;
+		}	
+	}
+	
+	//find out the maximum length of ascending subsequences and where it ends
+	int maxLen = 0;
+	int maxIndex = 0;
+	for(i = 0; i < n; i++){
+		if(len[i] > maxLen){
+			maxLen = len[i];
+			maxIndex = i;
+		} 
+	}
+	
+	//output the ascending subsequence
+	cout << "The subsequence of maximum length which is in ascending order: ";
+	for(i = maxIndex + 1 - maxLen; i <= maxIndex; i++){
+		cout << num[i] << " ";
+	}
+	
+}
+
+int main()
+{
+	cout << "Please enter the length of an array: ";
+	cin >> n;
+	int *num = new int[n];		//store the integers entered 
+	int *len = new int[n];		//store the length of ascending subsequences
+	cout << "Please enter the array with " << n << " integers: ";
+	for(int i=0; i<n; i++)
+	{
+		cin >> num[i];
+	}
+	
+	max_sub(num, len);
+	
+	cout << endl;
+	delete num, len;
+	return 0;
+}
