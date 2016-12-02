@@ -9,15 +9,15 @@ int main()
     string* words = new string[len];
 
 	cout << "Please enter a sentence with " << len << " words: ";
-    for(i = 0; i < len; i++)			//O(n)
+    for(i = 0; i < len; i++)			
     {
-        cin >> words[i];
+        cin >> words[i];			//O(n)
     }
 
 	cout << "The sentence after reversed: ";
-    for(i = len - 1; i >= 0; i--)		//O(n)
+    for(i = len - 1; i >= 0; i--)		
     {
-        cout << words[i] << " ";
+        cout << words[i] << " ";		//O(n)
     }
 
     cout << endl;
