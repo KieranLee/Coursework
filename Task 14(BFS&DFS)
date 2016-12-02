@@ -1,0 +1,182 @@
+#include <iostream>
+#include <fstream>
+#include <stack>
+#include <queue>
+using namespace std;
+
+#define N 10
+
+class Graph
+{
+public:
+	int numNodes;
+	int numEdges;
+	int AdMatrix[N][N];	//adjacency matrix
+	int nodes[N];		//store the value of nodes
+	int visited[N];		//represent whether a node is visited
+	//Graph constructor 
+	Graph()
+	{
+		numNodes = 0;
+		numEdges = 0;
+		for(int i = 0; i < N; i++)
+		{
+			for(int j = 0; j < N; j++)
+			{
+				AdMatrix[i][j] = 0;
+			}
+		}
+		for(int i = 0; i < N; i++)
+		{
+			visited[i] = 0;		//Node is not visited
+		}
+	}
+	//add the value of nodes
+	void addNodes()
+	{
+		for(int i = 0; i < numNodes; i++)
+		{
+			cin >> nodes[i];
+		}
+	}
+	//find out the position of targeted node in nodes[]
+	int nodesPos(int node)
+	{
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(node == nodes[i])
+			{
+				return i;
+			}
+		}
+	}
+	//add the unweighted edges
+	void addEdges(int node1, int node2)
+	{
+		int x = nodesPos(node1);
+		int y = nodesPos(node2);
+		AdMatrix[x][y] = 1;
+		AdMatrix[y][x] = 1;
+	}
+	//display nodes
+	void disNodes()
+	{
+		for(int i = 0; i < numNodes; i++)
+		{
+			cout << nodes[i] << " ";
+		}
+	}
+	//Depth-First Search
+	void DFS(int node)
+	{
+		ofstream fout("DFS.txt");	//store the output into txt file
+		stack<int> nStack;
+		nStack.push(node);			//push the start node
+		while(!nStack.empty())
+		{
+			int temp = nStack.top();
+			int x = nodesPos(temp);
+			nStack.pop();
+			if(visited[x] == 0)
+			{
+				visited[x] = 1;
+				fout << temp << " ";
+				for(int i = 0; i < numNodes; i++)
+				{
+					if(AdMatrix[x][i] == 1 && visited[i] == 0)
+					{
+						nStack.push(nodes[i]);
+					}
+				}
+			}
+		}
+		cout << "The results are saved in DFS.txt.";
+	}
+	//Breadth-First Search
+	void BFS(int node)
+	{
+		ofstream fout("BFS.txt"); //store the output into txt file
+		queue<int> nQueue;
+		nQueue.push(node);		//push the start node
+		while(!nQueue.empty())
+		{
+			int temp = nQueue.front();
+			int x = nodesPos(temp);
+			nQueue.pop();
+			if(visited[x] == 0)
+			{
+				visited[x] = 1;
+				fout << temp << " ";
+				for(int i = 0; i < numNodes; i++)
+				{
+					if(AdMatrix[x][i] == 1 && visited[i] == 0)
+					{
+						nQueue.push(nodes[i]);
+					}
+				}
+			}
+		}
+		cout << "The results are saved in BFS.txt.";
+	}
+};
+
+int main()
+{
+	Graph* g = new Graph();
+	//add nodes
+	cout << "Please enter the number of nodes (below 10): ";
+	cin >> g->numNodes;
+	while(g->numNodes > 10 || g->numNodes <= 0)
+	{
+		cout << "The maximum number of nodes is 10. Please enter again: ";
+		cin >> g->numNodes;
+	}
+	cout << "Please enter the value of nodes (" << g->numNodes << " integers): ";
+	g->addNodes();
+	cout << endl;
+	
+	//display the nodes entered
+	cout << "The nodes you have entered: ";
+	g->disNodes();
+	cout << endl;
+	
+	//add edges
+	int maxEdges = g->numNodes * (g->numNodes - 1) / 2;
+	int n1, n2;
+	cout << "Please enter the number of edges (below " << maxEdges << "): ";
+	cin >> g->numEdges;
+	while(g->numEdges > maxEdges || g->numEdges <= 0)
+	{
+		cout << "The maximum number of edges is " << maxEdges << ". Please enter again: ";
+		cin >> g->numEdges;
+	}
+	cout << "Please enter two nodes you want to connect from the nodes shown above every time." << endl;
+	for(int i = 0; i < g->numEdges; i++)
+	{
+		cout << "Edge " << i+1 << ": ";
+		cin >> n1 >> n2;
+		g->addEdges(n1, n2);
+	}
+	cout << endl;
+	
+	//DFS
+	int n3;
+	cout << "Please enter the start node of DFS: ";
+	cin >> n3;
+	g->DFS(n3);
+	cout << endl;
+	
+	//initialize visited[] again 
+	for(int i = 0; i < N; i++)
+	{
+		g->visited[i] = 0;	
+	}
+	
+	//BFS
+	int n4;
+	cout << "Please enter the start node of BFS: ";
+	cin >> n4;
+	g->BFS(n4);
+	
+	return 0;
+}
