@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    cout << "Please enter the length of sentence: ";
+    int len, i;
+    cin >> len;
+    string* words = new string[len];
+
+	cout << "Please enter a sentence with " << len << " words: ";
+    for(i = 0; i < len; i++)			//O(n)
+    {
+        cin >> words[i];
+    }
+
+	cout << "The sentence after reversed: ";
+    for(i = len - 1; i >= 0; i--)		//O(n)
+    {
+        cout << words[i] << " ";
+    }
+
+    cout << endl;
+    delete words;
+    return 0;
+}
+
+
+
+
+
